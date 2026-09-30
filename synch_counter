@@ -1,0 +1,17 @@
+
+module d_ff
+(input D,CLK,Q,Qbar);
+assign Qbar = ~Q;
+always @(posedge CLK) begin
+Q<=D;
+end
+endmodule
+module synch_counter
+( input CLK, output Q1,Q0);
+wire Q1bar , Q0bar;
+wire D1,D0;
+assign D1= Q1 | Q0;
+assign D0= ~Q1;
+d_ff ff0(D0 , CLK , Q0,Q0bar);
+d_ff ff1(D1 , CLK , Q1 , Q1bar);
+endmodule
